@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.nio.file.Path;
+
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -22,11 +22,11 @@ public class UserController {
     public UserDto getUserByEmail(@PathVariable String email){
         return userService.findByEmail(email);
     }
-    @GetMapping("/{name}")
+    @GetMapping("name/{name}")
     public UserDto getUserByName(@PathVariable String name){
         return userService.findByName(name);
     }
-    @GetMapping("/{username}")
+    @GetMapping("username/{username}")
     public UserDto getUserByUsername(@PathVariable String username){
         return userService.findByUserName(username);
     }

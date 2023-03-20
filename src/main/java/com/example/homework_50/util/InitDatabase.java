@@ -41,11 +41,12 @@ public class InitDatabase {
             List<Publication> publications = new ArrayList<>();
             users.forEach(user -> {
                 selectRandomUser(users,r.nextInt(3)+1).stream()
-                        .map(user1 -> Publication.random(user))
+                        .map(user1 -> Publication.random(pickRandom(users)))
                         .peek(publications::add)
                         .forEach(publicationDao::save);
+                        });
 
-            });
+
 //            List<Likes> likes = new ArrayList<>();
 //            users.forEach(user -> {
 //                selectRandomPublication(publications,r.nextInt(3)+1).stream()

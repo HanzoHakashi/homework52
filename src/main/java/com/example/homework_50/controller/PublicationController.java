@@ -26,7 +26,7 @@ public class PublicationController {
         return publicationService.findPostByUser(email);
     }
 
-    @GetMapping("/{autorSubscriptions}")
+    @GetMapping("subscriptions/{autorSubscriptions}")
     public List<PublicationDto> getPublicationBySubscriptions(@RequestParam String autorsSubscriptions){
         return publicationService.findPostBySubscriptions(autorsSubscriptions);
     }
