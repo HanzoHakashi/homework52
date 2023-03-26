@@ -20,13 +20,4 @@ public class Publication {
     private String description;
     private LocalDate postDate;
     private String ownerEmail;//author of publication
-
-    public static Publication random(User user) {
-        return builder()
-                .image(Generator.makeDescription())
-                .description(Generator.makeDescription())
-                .postDate(Generator.randomDate())
-                .ownerEmail(user.getEmail())
-                .build();
-    }
 }

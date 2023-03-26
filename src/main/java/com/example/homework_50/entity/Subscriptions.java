@@ -21,12 +21,4 @@ public class Subscriptions {
     private String subscription;//email of subscriptions
     private Date dateOfEvent;
 
-    public static Subscriptions random(User userEmail,User subscriber, User subscription) {
-        return builder()
-                .userEmail(userEmail.getEmail())
-                .subscriber(subscriber.getEmail())
-                .subscription(subscription.getEmail())
-                .dateOfEvent(new Date(Math.abs(System.currentTimeMillis() - RandomUtils.nextLong())))
-                .build();
-    }
 }

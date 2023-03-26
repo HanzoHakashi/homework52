@@ -2,10 +2,7 @@ package com.example.homework_50.controller;
 
 import com.example.homework_50.dto.PublicationDto;
 import com.example.homework_50.service.PublicationService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,12 +19,22 @@ public class PublicationController {
         return publicationService.findAll();
     }
     @GetMapping("/{email}")
-    public PublicationDto getPublicationByID(@RequestParam String email){
+    public PublicationDto getPublicationByID(@PathVariable String email){
         return publicationService.findPostByUser(email);
     }
 
     @GetMapping("subscriptions/{autorSubscriptions}")
-    public List<PublicationDto> getPublicationBySubscriptions(@RequestParam String autorsSubscriptions){
+    public List<PublicationDto> getPublicationBySubscriptions(@PathVariable String autorsSubscriptions){
         return publicationService.findPostBySubscriptions(autorsSubscriptions);
+    }
+
+    @PostMapping("/{description}")
+    public void addPublication(@PathVariable String description, @RequestParam String email, String image){
+        publicationService.addPublication(image,description,email);
+    }
+
+    @DeleteMapping("delete/{publicationID}")
+    public void deletePublication(@PathVariable Long publicationID,String email){
+        publicationService.deletePublication(publicationID,email);
     }
 }

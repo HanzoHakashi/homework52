@@ -45,7 +45,7 @@ public class PublicationDao extends BaseDao{
     public Optional<Publication> findPostByUser(String email) {
         String sql = "select * " +
                 "from publication " +
-                "where authorEmail = ?";
+                "where ownerEmail = ?";
         return Optional.ofNullable(DataAccessUtils.singleResult(
                 jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Publication.class), email)
         ));
@@ -53,23 +53,34 @@ public class PublicationDao extends BaseDao{
     public List<Publication> findPostBySubscriptions(String owner){
         String sql = "select * " +
                 "from publication" +
-                "where authorEmail in(" +
+                "where ownerEmail in(" +
                 "select subscription " +
                 "from subscriptions where userEmail = ?)";
        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(Publication.class),owner);
     }
 
     public void save(Publication publication) {
-        String sql = "insert into publication(image, description, postDate) " +
-                "values(?,?,?)";
+        String sql = "insert into publication(image, description, postDate,ownerEmail) " +
+                "values(?,?,?,?)";
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, publication.getImage());
             ps.setString(2, publication.getDescription());
             ps.setDate(3, Date.valueOf(publication.getPostDate()));
+            ps.setString(4,publication.getOwnerEmail());
             return ps;
         });
     }
+
+    public void deletePublication(Long publicationID, String email) {
+        String deletePublication = "DELETE FROM publications WHERE id = ? AND ownerEmail = ?";
+//        String deleteComments = "DELETE FROM comments WHERE publication_id = ?";
+
+//        jdbcTemplate.update(deleteComments, publicationID);
+        jdbcTemplate.update(deletePublication, publicationID, email);
+    }
+
+
     public void deleteAll() {
         String sql = "delete from publication";
         jdbcTemplate.update(sql);

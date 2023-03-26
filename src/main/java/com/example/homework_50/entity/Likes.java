@@ -20,11 +20,4 @@ public class Likes {
    private Long likedPost;//id of post
    private Date dateOfLike;
    private String likedUser;
-   public static Likes random(Publication publication, User user) {
-      return builder()
-              .likedPost(publication.getId())
-              .dateOfLike(new Date(Math.abs(System.currentTimeMillis() - RandomUtils.nextLong())))
-              .likedUser(user.getEmail())
-              .build();
-   }
 }

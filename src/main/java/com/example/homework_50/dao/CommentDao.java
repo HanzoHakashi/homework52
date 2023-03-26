@@ -18,7 +18,8 @@ public class CommentDao extends BaseDao{
     public void createTable() {
         jdbcTemplate.execute("create table if not exists comments\n" +
                 "(\n" +
-                "    id    bigserial primary key," +
+                "    publication_id    bigserial primary key,\n" +
+                "    foreign key (publication_id) references publication (id),\n" +
                 "    author varchar,\n" +
                 "    foreign key (author) references usr (email),\n" +
                 "    text  varchar not null,\n" +

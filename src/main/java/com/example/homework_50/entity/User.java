@@ -13,13 +13,6 @@ public class User {
     private String username;
     private String password;
     private int counter;
+    private Boolean enabled = Boolean.TRUE;
 
-    public static User random() {
-        return builder()
-                .email(Generator.makeEmail())
-                .name(Generator.makeName())
-                .username(Generator.makeName())
-                .password(Generator.makePassword())
-                .build();
-    }
 }

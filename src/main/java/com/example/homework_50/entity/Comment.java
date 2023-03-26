@@ -15,14 +15,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
+    private Long publication_id; //FK for Publication
     private String author;
     private String text;
     private Date timeOfComment;
-    public static Comment random(User user) {
-        return builder()
-                .author(user.getEmail())
-                .text(Generator.makeDescription())
-                .timeOfComment(new Date(Math.abs(System.currentTimeMillis() - RandomUtils.nextLong())))
-                .build();
-    }
 }
