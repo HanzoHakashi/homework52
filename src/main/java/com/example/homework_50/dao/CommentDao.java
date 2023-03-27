@@ -2,9 +2,11 @@ package com.example.homework_50.dao;
 
 import com.example.homework_50.entity.Comment;
 import com.example.homework_50.entity.Publication;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -31,14 +33,17 @@ public class CommentDao extends BaseDao{
         jdbcTemplate.update(sql);
     }
     public void save(Comment comment) {
-        String sql = "insert into comments(author, text, timeOfComment) " +
-                "values(?,?,?)";
+        String sql = "insert into comments(publication_id,author, text,timeOfComment) " +
+                "values(?,?,?,?)";
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, comment.getAuthor());
-            ps.setString(2, comment.getText());
-            ps.setDate(3, (Date) comment.getTimeOfComment());
+            ps.setLong(1,comment.getPublication_id());
+            ps.setString(2, comment.getAuthor());
+            ps.setString(3, comment.getText());
+            ps.setDate(4,(Date) comment.getTimeOfComment());
             return ps;
         });
     }
+
+
 }
