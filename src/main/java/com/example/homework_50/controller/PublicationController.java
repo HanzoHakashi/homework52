@@ -28,7 +28,7 @@ public class PublicationController {
         return publicationService.findPostBySubscriptions(autorsSubscriptions);
     }
 
-    @PostMapping("/{description}")
+    @PostMapping("post/{description}")
     public void addPublication(@PathVariable String description, @RequestParam String email, String image){
         publicationService.addPublication(image,description,email);
     }
